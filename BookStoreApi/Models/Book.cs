@@ -20,5 +20,5 @@ public class Book
 
     public string Author { get; set; } = null!;
 
-    public string Content { get; set; } = null!;
+    public string ContentId { get; set; } = null!;
 }

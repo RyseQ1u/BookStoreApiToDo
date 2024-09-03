@@ -1,12 +1,10 @@
 ﻿namespace BookStoreApi.Models;
 
-public class BookStoreDatabaseSettings
+public class BookContentDatabaseSettings
 {
     public string ConnectionString { get; set; } = null!;
 
     public string DatabaseName { get; set; } = null!;
-
-    public string BooksCollectionName { get; set; } = null!;
 
     public string BookContentsCollectionName { get; set; } = null!;
 }
