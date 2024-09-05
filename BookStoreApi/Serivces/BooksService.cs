@@ -20,9 +20,17 @@ public class BooksService
 
         var mongoDatabase = mongoClient.GetDatabase(
             bookStoreDatabaseSettings.Value.DatabaseName);
-
+        //创建集合的时候创建索引
+        var collections = mongoDatabase.ListCollectionNames();
+        var isNew = !collections.ToList().Any(x => x == bookStoreDatabaseSettings.Value.BooksCollectionName);
         _booksCollection = mongoDatabase.GetCollection<Book>(
             bookStoreDatabaseSettings.Value.BooksCollectionName);
+        if (isNew)
+        {
+            var indexModel = new CreateIndexModel<Book>(Builders<Book>.IndexKeys.Ascending(m => m.BookName));
+            _booksCollection.Indexes.CreateOne(indexModel);
+        }
+
         _bookContentsCollection = mongoDatabase.GetCollection<BookContent>(
             bookStoreDatabaseSettings.Value.BookContentsCollectionName);
     }
